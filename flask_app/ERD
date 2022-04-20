@@ -1,0 +1,111 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Beers_Schema
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `Beers_Schema` ;
+
+-- -----------------------------------------------------
+-- Schema Beers_Schema
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Beers_Schema` DEFAULT CHARACTER SET utf8 ;
+USE `Beers_Schema` ;
+
+-- -----------------------------------------------------
+-- Table `Beers_Schema`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Beers_Schema`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NULL,
+  `last_name` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NULL,
+  `age` DATE NULL DEFAULT NULL,
+  `password` VARCHAR(255) NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `Updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Beers_Schema`.`beers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Beers_Schema`.`beers` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `Users_id` INT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  `brewery` VARCHAR(255) NULL,
+  `style` VARCHAR(255) NULL,
+  `ABV` VARCHAR(255) NULL,
+  `IBU` VARCHAR(255) NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Beers_Users1_idx` (`Users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Beers_Users1`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `Beers_Schema`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Beers_Schema`.`favorites`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Beers_Schema`.`favorites` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `User_id` INT NOT NULL,
+  `Beer_id` INT NOT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_favorites_Users_idx` (`User_id` ASC) VISIBLE,
+  INDEX `fk_favorites_Beers1_idx` (`Beer_id` ASC) VISIBLE,
+  CONSTRAINT `fk_favorites_Users`
+    FOREIGN KEY (`User_id`)
+    REFERENCES `Beers_Schema`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_favorites_Beers1`
+    FOREIGN KEY (`Beer_id`)
+    REFERENCES `Beers_Schema`.`beers` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Beers_Schema`.`rating`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Beers_Schema`.`rating` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `Users_id` INT NOT NULL,
+  `Beers_id` INT NOT NULL,
+  `rating` INT NULL,
+  `comment` TEXT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Rating_Users1_idx` (`Users_id` ASC) VISIBLE,
+  INDEX `fk_Rating_Beers1_idx` (`Beers_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Rating_Users1`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `Beers_Schema`.`users` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Rating_Beers1`
+    FOREIGN KEY (`Beers_id`)
+    REFERENCES `Beers_Schema`.`beers` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
