@@ -1,10 +1,10 @@
 from flask_app import app
-from flask_app.models import user
+from flask_app.models import user, rating
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 
 class Beer:
-    schema_name = "chores_schema"
+    schema_name = "beers_schema"
 
     def __init__(self, data):
         self.id = data['id']
@@ -21,7 +21,7 @@ class Beer:
     @staticmethod
     def validate_beer(beer):
         is_valid = True
-        query = "SELECT * FROM chores WHERE chores.id = %(beer_id)s"
+        query = "SELECT * FROM beers WHERE beers.id = %(beer_id)s"
         results = connectToMySQL("beers_schema").query_db(query, beer)
         if len(beer['name']) < 2:
             flash("The name of the beer must be at least 2 characters", "beer")
@@ -47,6 +47,11 @@ class Beer:
         return connectToMySQL("beers_schema").query_db(query, data)
 
     @classmethod
+    def save_favorite(cls, data):
+        query = "INSERT INTO favorites (user_id, beer_id) VALUES (%(user_id)s, %(beer_id)s);"
+        return connectToMySQL("beers_schema").query_db(query, data)
+
+    @classmethod
     def get_all_beers(cls):
         query = "SELECT * FROM beers;"
         results = connectToMySQL('beers_schema').query_db(query)
@@ -56,7 +61,7 @@ class Beer:
         return beers
 
     @classmethod
-    def get_all_beers_by_beer_id(cls, data):
+    def get_beer_by_beer_id(cls, data):
         query = "SELECT * FROM beers WHERE beers.id = %(id)s;"
         results = connectToMySQL('beers_schema').query_db(query, data)
         beers = []
