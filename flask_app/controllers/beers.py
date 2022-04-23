@@ -7,6 +7,7 @@ from flask import render_template, redirect, request, session, flash
 def add_beer_page():
     if 'user_id' not in session:
         return redirect('/login')
+
     # Styles dictionary for dropdown menu
     styles = {
         'Altbier': 'Altbier',
@@ -57,6 +58,7 @@ def add_beer_page():
         'Wood-aged beer': 'Wood-aged beer'
     }
     return render_template('add_beer.html',title = "Add Beer", styles = styles)
+
 
 # Route to validate and add beer to database. redirects to show the beer that was just added.
 @app.route('/beer/save-to-db', methods=['POST'])

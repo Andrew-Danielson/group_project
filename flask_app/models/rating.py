@@ -21,8 +21,9 @@ class Rating:
         is_valid = True
         query = "SELECT * FROM rating where rating.id = %(rating_id)s"
         results = connectToMySQL("beers_schema").query_db(query, rating)
-        if rating['rating'] != int(min=0, max=10):
-            flash("please select a number between 0 and 10", "rating")
+        if rating['rating'] != int(min=0, max=5):
+        # if int(rating['rating']) < 0 or int(rating['rating']) > 5: try this if the other one doesn't work.
+            flash("please select a number between 0 and 5", "rating")
             is_valid = False
         return is_valid
 
