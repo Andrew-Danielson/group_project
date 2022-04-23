@@ -1,0 +1,9 @@
+The Beer App!
+
+members: Andrew Danielson, Elijah Haley, Ron Murphy, Kevin Weikert
+
+We are making an app all about beers and our love for beer.
+
+Features: adding beers and information about that beer to a database, mark which beers are our favorites, and make comments on beers.
+
+GitHub repo: https://github.com/Andrew-Danielson/group_project.git
