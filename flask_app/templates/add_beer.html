@@ -1,23 +1,54 @@
 {% extends "template.html" %}
 {% block content %}
+<div class="col-8 mx-auto mt-5">
+    <!-- Maybe add a hello whoever -->
+    <!-- <h1 class="text-center">Welcome !!!</h1> -->
+    <h1>Add a New Beer</h2>
+    <form action="/create/recipe" method="post" class="newBeer">
+        {% with messages = get_flashed_messages(category_filter=['']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Flash!!!!</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <div class="d-flex justify-content-between col-9">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input required type="text" name="name" class="form-control ">
+                </div>
+                <div class="form-group">
+                    <label for="style">Style:</label>
+                    <select class="form-select" name="style" id="">
+                        {%for key, val in styles.items()%}
+                            <option value="{{key}}">{{val}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="instructions">IBU:</label>
+                    <input  type="text" name="IBU" class="form-control"></input>
+                </div>
+            </div>
+            <div class="col-4">
 
-
-
-
-
-
-<!-- New HTML goes in here (: -->
-<!-- Doctype,html,head,and body are already populated from the extends html -->
-
-
-
-
-
-
-
-
-
-
-
-
+                <div class="form-group">
+                    <label for="Brewery">Brewery:</label>
+                    <input required type="text" name="" class="form-control">
+                </div>
+                <label for="ABV">ABV: (Optional)</label>
+                <div class="form-group bg-dark">
+                    <input required type="text" name="ABV" class="form-control">
+                </div>
+                <br>
+                <input type="submit" value="Add Beer" class="button">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

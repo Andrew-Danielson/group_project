@@ -71,7 +71,7 @@ def register_user():
         return redirect('/dashboard')
 
 # Route to display user account
-@app.route('my-account')
+@app.route('/my-account')
 def my_account():
     if 'user_id' not in session:
         return redirect('/login')

@@ -2,3 +2,86 @@
     height: 50px;
     margin-right:10px ;
 }
+a{
+    color: white;
+}
+a:hover{
+    color: orange;
+}
+a:active{
+    text-decoration: line-through;
+}
+body {
+    background-color: gray;
+    font-family: "Roboto";
+}
+
+p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: "Roboto";
+}
+
+.content {
+    padding: 7rem 0; }
+
+h2 {
+    font-size: 20px;
+    color: white; }
+
+.custom-table
+    .custom-table thead tr, .custom-table thead th {
+    padding-bottom: 30px;
+    color: white;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .2rem; }
+    .custom-table tbody th, .custom-table tbody td {
+    color: white;
+    font-weight: 400;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: none;
+    transition: .5 all ease; }
+    .custom-table tbody th small, .custom-table tbody td small {
+        color: white(255, 255, 255, 0.3);
+        font-weight: 300; }
+    .custom-table tbody th a, .custom-table tbody td a {
+        color: white(255, 255, 255, 0.3); }
+    .custom-table tbody th .more, .custom-table tbody td .more {
+        color: white(255, 255, 255, 0.3);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .2rem; }
+    .custom-table tbody tr {
+    transition: .5 all ease; }
+    .custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
+        color: orange; }
+        .custom-table tbody tr:hover td a, .custom-table tbody tr:focus td a {
+        color: orange; }
+        .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
+        color: orange; }
+    .custom-table .td-box-wrap {
+    padding: 0; }
+    .custom-table .box {
+        border-radius: 4px;
+        margin-top: 15px;
+        margin-bottom: 15px; 
+        background: #fff;
+    }
+
+.form-body , input:hover , select:hover{
+    border: 2px solid orange;
+}
+.newBeer{
+    color: white;
+    border-top: 2px solid black;
+    padding: 20px;
+    color: black;
+}
+.button{
+    box-shadow: 5px 5px black;
+}
