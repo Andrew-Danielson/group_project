@@ -1,0 +1,40 @@
+{% extends "template.html" %}
+{% block content %}
+<div class="col-8 mx-auto mt-4">
+    <h1 class="">All Beers(0)</h1>
+        <table class="table table-striped custom-table">
+            <thead>
+                <tr>
+                    <th>Beer</th>
+                    <th>Brewery</th>
+                    <th>Style</th>
+                    <th>ABV</th>
+                    <th>IBU</th>
+                    <th>Average Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ___ in ___ %}
+                    <tr>
+                        <td>Example</td>
+                        <td>Example</td>
+                        <td>Example</td>
+                        <td>Example</td>
+                        <td>Example</td>
+                        <td>Example</td>
+                        <td>
+                            <a href="#">Favorite</a>
+                            <a href="#">Rate</a>
+                            <a href="#">View</a>
+                            <!-- {# if .user_id == session.user_id #} -->
+                            <!-- <a href="#">Edit</a>
+                            <a href="#">Delete</a> -->
+                            <!-- {# endif #} -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
