@@ -5,14 +5,17 @@ from flask_app.models import user, beer
 
 from flask import render_template, redirect, request, session, flash
 
+# Route to Show Landing Page
 @app.route('/')
 def root():
     return render_template('index.html')
 
+# Route to show login page
 @app.route('/login')
 def login_page():
     return render_template('login.html')
 
+# Route to validate user login and login user
 @app.route('/login_to_app', methods =['POST'])
 def login_to_app():
     data = {
@@ -29,6 +32,7 @@ def login_to_app():
     session['first_name'] = user_in_db.first_name
     return redirect("/dashboard")
 
+# Route to display dashboard
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
@@ -42,10 +46,12 @@ def dashboard():
         all_beers = beer.Beer.get_all_beers
         return render_template('dashboard.html', all_beers = all_beers, favorite_beers = all_favorite_beers)
 
+# Route to show user registration page
 @app.route('/register')
 def register():
     return render_template('register.html')
 
+# Route to Register a new user
 @app.route('/register_user', methods=['POST'])
 def register_user():
     if not user.User.validate_user(request.form):
@@ -64,6 +70,17 @@ def register_user():
         session['first_name'] = request.form['first_name']
         return redirect('/dashboard')
 
+# Route to display user account
+@app.route('my-account')
+def my_account():
+    if 'user_id' not in session:
+        return redirect('/login')
+    else:
+        data={
+            'user_id': session['user_id']
+        }
+        this_user_with_favorite_beers = beer.Beer.get_all_favorited_beers_by_user_id(data)
+        return render_template('my-account.html', this_user_with_favorite_beers = this_user_with_favorite_beers)
 
 @app.errorhandler(404)
 def error(incorrect):
