@@ -1,7 +1,5 @@
 from flask_app import app
-from flask_bcrypt import Bcrypt
-from flask_app.models.user import User
-from flask_app.models.beer import Beer
+from flask_app.models import user, beer
 from flask import render_template, redirect, request, session, flash
 
 

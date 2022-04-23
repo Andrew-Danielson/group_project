@@ -1,5 +1,5 @@
 from flask_app import app
-from flask_app.models import beer, rating
+from flask_app.models import beer
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 import re
