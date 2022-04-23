@@ -7,7 +7,58 @@ from flask import render_template, redirect, request, session, flash
 def add_beer_page():
     if 'user_id' not in session:
         return redirect('/login')
-    return render_template('add_beer.html',title = "Add Beer")
+
+    # Styles dictionary for dropdown menu
+    styles = {
+        'Altbier': 'Altbier',
+        'Amber ale': 'Amber ale',
+        'Barley wine': 'Barley wine',
+        'Berliner Weisse': 'Berliner Weisse',
+        'Bière de Garde': 'Bière de Garde',
+        'Bitter': 'Bitter',
+        'Blonde Ale': 'Blonde Ale',
+        'Bock': 'Bock',
+        'Brown ale': 'Brown ale',
+        'California Common/Steam Beer': 'California Common/Steam Beer',
+        'Cream Ale': 'Cream Ale',
+        'Doppelbock': 'Doppelbock',
+        'Dunkel': 'Dunkel',
+        'Dunkelweizen': 'Dunkelweizen',
+        'Eisbock': 'Eisbock',
+        'Fruit beer': 'Fruit beer',
+        'Golden/Summer ale': 'Golden/Summer ale',
+        'Gose': 'Gose',
+        'Gueuze': 'Gueuze',
+        'Hefeweizen': 'Hefeweizen',
+        'Helles': 'Helles',
+        'Herb and spiced beer': 'Herb and spiced beer',
+        'Honey beer': 'Honey beer',
+        'India pale ale': 'India pale ale',
+        'Kölsch': 'Kölsch',
+        'Lambic': 'Lambic',
+        'Light ale':'Light ale',
+        'Lager': 'Lager',
+        'Maibock/Helles bock': 'Maibock/Helles bock',
+        'Oktoberfestbier/Märzenbier': 'Oktoberfestbier/Märzenbier',
+        'Old ale': 'Old ale',
+        'Pale ale': 'Pale ale',
+        'Pilsner': 'Pilsner',
+        'Porter': 'Porter',
+        'Red ale': 'Red ale',
+        'Rye Beer': 'Rye Beer',
+        'Saison': 'Saison',
+        'Schwarzbier': 'Schwarzbier',
+        'Scotch ale': 'Scotch ale',
+        'Smoked beer': 'Smoked beer',
+        'Stout': 'Stout',
+        'Weissbier': 'Weissbier',
+        'Weizenbock': 'Weizenbock',
+        'Wild beer': 'Wild beer',
+        'Witbier': 'Witbier',
+        'Wood-aged beer': 'Wood-aged beer'
+    }
+    return render_template('add_beer.html',title = "Add Beer", styles = styles)
+
 
 # Route to validate and add beer to database. redirects to show the beer that was just added.
 @app.route('/beer/save-to-db', methods=['POST'])

@@ -23,29 +23,10 @@
                 </div>
                 <div class="form-group">
                     <label for="style">Style:</label>
-                    <select class="form-select"name="style" id="">
-                        <option value="Ale">Ale</option>
-                        <option value="Amber ale">Amber ale</option>
-                        <option value="Bock">Bock</option>
-                        <option value="Bitter">Bitter</option>
-                        <option value="Brown Ale">Brown Ale</option>
-                        <option value="Cream Ale">Cream Ale</option>
-                        <option value="Doppelbock">Doppelbock</option>
-                        <option value="Dubbel">Dubbel</option>
-                        <option value="Irish Red Ale">Irish Red Ale</option>
-                        <option value="Kölsch">Kölsch</option>
-                        <option value="Lager">Lager</option>
-                        <option value="Lambic">Lambic</option>
-                        <option value="Märzen">Märzen</option>
-                        <option value="Pale">Pale Ale</option>
-                        <option value="Pale">Pale Lager</option>
-                        <option value="Pilsner">Pilsner</option>
-                        <option value="Porter">Porter</option>
-                        <option value="Saison">Saison</option>
-                        <option value="Stout">Stout</option>
-                        <option value="Tripel">Tripel</option>
-                        <option value="Witbier">Witbier</option>
-                        <option value="Other">Other (Sorry)</option>
+                    <select class="form-select" name="style" id="">
+                        {%for key, val in styles.items()%}
+                            <option value="{{key}}">{{val}}</option>
+                        {%endfor%}
                     </select>
                 </div>
                 <div class="form-group">
