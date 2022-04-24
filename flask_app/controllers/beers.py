@@ -105,7 +105,7 @@ def favorite_beer(beer_id):
     return redirect('/dashboard')
 
 # Route to remove favorite. Where id is of the favorite in the database.
-@app.route('beer/remove-favorite/<int:id>', methods=['POST'])
+@app.route('/beer/remove-favorite/<int:id>', methods=['POST'])
 def remove_favorite_beer(id):
     if 'user_id' not in session:
         return redirect('/login')
