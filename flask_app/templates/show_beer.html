@@ -1,0 +1,51 @@
+{% extends "template.html" %}
+{% block content %}
+
+{% extends "template.html" %}
+{% block content %}
+<h1 class="text-center">(Beers name) Rating</h1>
+<div class="mx-0 row align-items-top text-center">
+    <div class="col">
+        <div class>
+            <h2>Beer Name</h2>
+            <div class=" border pt-3 col-4 mx-auto text-white">
+                <div>
+                    <p class="text-white">Brewery: </p>
+                    <p class="text-white">Style: </p>
+                    <p class="text-white">ABV: </p>
+                    <p class="text-white">IBU: </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="mb-2">
+            <div class="rating-css mx-auto">
+                <div class="star-icon">
+                    <!-- Need to figure out how to make an average rating from the users -->
+                    <label id='rating'for="rating">Average Rating:</label>
+                    <input value="1" type="radio" name="rating" id="rating1">
+                    <label for="rating1" class="fa fa-star"></label>
+                    <input value="2" type="radio" name="rating" id="rating2">
+                    <label for="rating2" class="fa fa-star"></label>
+                    <input value="3" type="radio" name="rating" id="rating3">
+                    <label for="rating3" class="fa fa-star"></label>
+                    <input value="4" type="radio" name="rating" id="rating4">
+                    <label for="rating4" class="fa fa-star"></label>
+                    <input value="5" type="radio" name="rating" id="rating5">
+                    <label for="rating5" class="fa fa-star"></label>
+                </div>
+            </div>
+            {for "" in ""}
+            <div class=" border pt-3 col-4 mx-auto text-white">
+                <h4 class="text-black">(User Name)</h4>
+                <div>
+                    <p class="text-white">Rating: </p>
+                    <p class="text-white"> Comment:</p>
+                </div>
+            </div>
+            {endfor}
+        </div>
+    </div>
+</div>
+{% endblock %}

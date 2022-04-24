@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+{% block content %}
+
+<div class=" mx-auto mt-5 text-center">
+    <h1 class="mb-4">Rate Beer</h1>
+    <!-- Maybe add a hello whoever -->
+    <form action="" method="post" class="rateBeer">
+        {% with messages = get_flashed_messages(category_filter=['']) %}
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Flash!!!!</strong>
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="mx-auto text-center pt-3">
+            <div class=" mx-auto text-center">
+                <div class="rating-css mx-auto">
+                    <h2 class="mb-4">(Beer Name)</h2>
+                    <!-- ^^^^Jinja for beer.name??? -->
+                    <div class="star-icon">
+                        <label id='rating'for="rating">Rating:</label>
+                        <input value="1" type="radio" name="rating" id="rating1">
+                        <label for="rating1" class="fa fa-star"></label>
+                        <input value="2" type="radio" name="rating" id="rating2">
+                        <label for="rating2" class="fa fa-star"></label>
+                        <input value="3" type="radio" name="rating" id="rating3">
+                        <label for="rating3" class="fa fa-star"></label>
+                        <input value="4" type="radio" name="rating" id="rating4">
+                        <label for="rating4" class="fa fa-star"></label>
+                        <input value="5" type="radio" name="rating" id="rating5">
+                        <label for="rating5" class="fa fa-star"></label>
+                    </div>
+                </div>
+            </div>
+            <h3> <label class=''for="comment">Comment:</label></h3>
+            <textarea name="description" cols="45" rows="8" class="form-controls" placeholder="Tell us what you think!"></textarea>
+            <br>
+            <input type="submit" value="Rate Beer" id="rate" class="beerButton">
+        </div>
+    </form>
+</div>
+{% endblock %}
