@@ -50,7 +50,12 @@ class Beer:
     def save_favorite(cls, data):
         query = "INSERT INTO favorites (user_id, beer_id) VALUES (%(user_id)s, %(beer_id)s);"
         return connectToMySQL("beers_schema").query_db(query, data)
-
+    
+    @classmethod
+    def remove_favorite(cls, data):
+        query = "DELETE FROM favorites WHERE id = %(id)s;"
+        return connectToMySQL("beers_schema").query_db(query, data)
+        
     @classmethod
     def get_all_beers(cls):
         query = "SELECT * FROM beers;"
