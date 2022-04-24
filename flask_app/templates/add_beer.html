@@ -5,7 +5,7 @@
     <!-- <h1 class="text-center">Welcome !!!</h1> -->
     <h1>Add a New Beer</h2>
     <form action="/create/recipe" method="post" class="newBeer">
-        {% with messages = get_flashed_messages(category_filter=['']) %}
+        {% with messages = get_flashed_messages() %}
             {% if messages %}
             <div class="alert alert-danger" role="alert">
                 <strong>Flash!!!!</strong>

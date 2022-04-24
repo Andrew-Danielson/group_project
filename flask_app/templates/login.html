@@ -23,6 +23,15 @@
     <div>
         <div class="card bg-dark bg-opacity-75 border-warning text-light mt-5 mx-auto w-25 p-5 align-items-center align-content-center rounded-3">
             <form action="/login_to_app" method="post">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="text-danger fw-b">
+                        {% for message in messages %}
+                        <P>{{ message }}</P>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endwith %}
                 <h2 class="card-title text-center">Login</h2>
                 <div class="col-auto">
                     <label for="email">Email:</label>
