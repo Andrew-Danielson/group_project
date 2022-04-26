@@ -1,3 +1,4 @@
+from urllib import request
 from flask_app import app
 from flask_app.models import beer, rating
 from flask_app.config.mysqlconnection import connectToMySQL
@@ -20,6 +21,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.beers = []
+        self.favorite_beers = []
 
     @staticmethod
     def validate_user(user):
@@ -32,16 +34,18 @@ class User:
         if len(user['last_name']) < 3:
             flash("Last name must be at least 3 characters.", "registration")
             is_valid = False
-        # Calculate Age of User
-        date_object = datetime.strptime(user['age'],'%Y-%m-%d').date()
-        def age(birthdate):
-            today = date.today()
-            age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-            return age
-        print(user['age'])
-        # Validate age
-        if  age(date_object) < int(21):
-            flash("You must be 21 or older to enter this site", "registration")
+        print(user)
+        if 'age' in user:
+            # Calculate Age of User
+            date_object = datetime.strptime(user['age'],'%Y-%m-%d').date()
+            def age(birthdate):
+                today = date.today()
+                age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+                return age
+            print(user['age'])
+            # Validate age
+            if  age(date_object) < int(21):
+                flash("You must be 21 or older to enter this site", "registration")
         if len(results) >= 1:
             flash("Email already taken.", "registration")
             is_valid = False
@@ -59,6 +63,11 @@ class User:
     @classmethod
     def save_user(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, age, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(age)s, %(password)s);"
+        return connectToMySQL("beers_schema").query_db(query, data)
+    
+    @classmethod
+    def update_user(cls, data):
+        query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, password=%(password)s WHERE users.id = %(user_id)s;"
         return connectToMySQL("beers_schema").query_db(query, data)
 
     @classmethod
@@ -84,5 +93,24 @@ class User:
             users.append(cls(entry))
         return users
 
-
+    # Get User with favorite beers
+    @classmethod
+    def get_user_with_favorite_beers(cls, data):
+        query = "SELECT * FROM users LEFT JOIN favorites ON users.id = favorites.user_id LEFT JOIN beers on favorites.beer_id = beers.id WHERE users.id = %(user_id)s;"
+        results = connectToMySQL("beers_schema").query_db(query, data)
+        this_user = cls(results[0])
+        for row_in_db in results:
+            beer_data = {
+                'id': row_in_db['beers.id'],
+                'user_id': row_in_db['beers.user_id'],
+                'name': row_in_db['name'],
+                'brewery': row_in_db['brewery'],
+                'style': row_in_db['style'],
+                'ABV': row_in_db['ABV'],
+                'IBU': row_in_db['IBU'],
+                'created_at': row_in_db['beers.created_at'],
+                'updated_at': row_in_db['beers.updated_at'],
+            }
+            this_user.favorite_beers.append(beer.Beer(beer_data))
+        return this_user
 
