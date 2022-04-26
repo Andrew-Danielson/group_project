@@ -2,6 +2,7 @@ from flask_app import app
 from flask_app.models import beer, rating
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
+from datetime import datetime, date
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -31,7 +32,15 @@ class User:
         if len(user['last_name']) < 3:
             flash("Last name must be at least 3 characters.", "registration")
             is_valid = False
-        if  user['age'] < int(21):
+        # Calculate Age of User
+        date_object = datetime.strptime(user['age'],'%Y-%m-%d').date()
+        def age(birthdate):
+            today = date.today()
+            age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+            return age
+        print(user['age'])
+        # Validate age
+        if  age(date_object) < int(21):
             flash("You must be 21 or older to enter this site", "registration")
         if len(results) >= 1:
             flash("Email already taken.", "registration")
@@ -49,7 +58,7 @@ class User:
 
     @classmethod
     def save_user(cls, data):
-        query = "INSERT INTO users (first_name, last_name, email, age, password) VALUES (%(first_name)s, %(last_name)s, %(is_parent)s, %(email)s, %(password)s);"
+        query = "INSERT INTO users (first_name, last_name, email, age, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(age)s, %(password)s);"
         return connectToMySQL("beers_schema").query_db(query, data)
 
     @classmethod
