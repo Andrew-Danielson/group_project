@@ -81,8 +81,8 @@ def my_account():
         data={
             'user_id': session['user_id']
         }
-        this_user_with_favorite_beers = beer.Beer.get_all_favorited_beers_by_user_id(data)
-        return render_template('my-account.html', this_user_with_favorite_beers = this_user_with_favorite_beers)
+        this_user = user.User.get_user_with_favorite_beers(data)
+        return render_template('my-account.html', this_user = this_user)
 
 # Route to edit user profile
 @app.route('/edit-account', methods=['POST'])

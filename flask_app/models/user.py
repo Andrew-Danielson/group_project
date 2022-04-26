@@ -21,6 +21,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.beers = []
+        self.favorite_beers = []
 
     @staticmethod
     def validate_user(user):
@@ -92,5 +93,24 @@ class User:
             users.append(cls(entry))
         return users
 
-
+    # Get User with favorite beers
+    @classmethod
+    def get_user_with_favorite_beers(cls, data):
+        query = "SELECT * FROM users LEFT JOIN favorites ON users.id = favorites.user_id LEFT JOIN beers on favorites.beer_id = beers.id WHERE users.id = %(user_id)s;"
+        results = connectToMySQL("beers_schema").query_db(query, data)
+        this_user = cls(results[0])
+        for row_in_db in results:
+            beer_data = {
+                'id': row_in_db['beers.id'],
+                'user_id': row_in_db['beers.user_id'],
+                'name': row_in_db['name'],
+                'brewery': row_in_db['brewery'],
+                'style': row_in_db['style'],
+                'ABV': row_in_db['ABV'],
+                'IBU': row_in_db['IBU'],
+                'created_at': row_in_db['beers.created_at'],
+                'updated_at': row_in_db['beers.updated_at'],
+            }
+            this_user.favorite_beers.append(beer.Beer(beer_data))
+        return this_user
 
