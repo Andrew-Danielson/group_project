@@ -39,6 +39,7 @@ def dashboard():
         return redirect('/')
     else:
         data = {
+            'id': session['user_id'],
             'user_id': session['user_id']
         }
         this_user = user.User.get_user_by_id(data)
@@ -82,6 +83,10 @@ def my_account():
         }
         this_user_with_favorite_beers = beer.Beer.get_all_favorited_beers_by_user_id(data)
         return render_template('my-account.html', this_user_with_favorite_beers = this_user_with_favorite_beers)
+
+# Route to edit user profile
+
+
 
 @app.errorhandler(404)
 def error(incorrect):

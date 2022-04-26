@@ -100,6 +100,9 @@ class Beer:
     def get_all_favorited_beers_by_user_id(cls, data):
         query = "SELECT * FROM favorites JOIN users ON users.id = favorites.user_id JOIN beers ON beers.id = favorites.beer_id WHERE users.id = %(user_id)s;"
         results = connectToMySQL("beers_schema").query_db(query, data)
+        print(results)
+        if len(results) == 0:
+            return None
         beers = []
         for row in results:
             beer_instance = cls(row)
