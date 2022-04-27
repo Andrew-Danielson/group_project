@@ -2,7 +2,7 @@
 {% block content %}
 <div class="col-8 mx-auto mt-4">
     <h1 class="">All Beers(0)</h1>
-    <h1>{{beer.brewery}}</h1>
+    <h1></h1>
         <table class="table table-striped custom-table">
             <thead>
                 <tr>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for beer in beers %}
+                {% for one_beer in all_beers %}
                     <tr>
                         <td>{{one_beer.name}}</td>
                         <td>{{one_beer.brewery}}</td>
@@ -25,9 +25,9 @@
                         <td>{{one_beer.IBU}}</td>
                         <!-- <td>Average Rating</td> -->
                         <td>
-                            <a href="#">Favorite</a>
-                            <a href="#">Rate</a>
-                            <a href="#">View</a>
+                            <a href="/beer/{{one_beer.id}}/favorite">Favorite</a>
+                            <a href="/beer/{{one_beer.id}}/rate">Rate</a>
+                            <a href="/beer/{{one_beer.id}}/view">View</a>
                             <!-- {# if .user_id == session.user_id #} -->
                             <!-- <a href="#">Edit</a>
                             <a href="#">Delete</a> -->

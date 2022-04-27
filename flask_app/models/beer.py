@@ -69,10 +69,8 @@ class Beer:
     def get_beer_by_beer_id(cls, data):
         query = "SELECT * FROM beers WHERE beers.id = %(id)s;"
         results = connectToMySQL('beers_schema').query_db(query, data)
-        beers = []
-        for row in results:
-            beers.append(cls(row))
-        return beers
+        this_beer = cls(results[0])
+        return this_beer
 
     @classmethod
     def get_all_beers_by_user_id(cls, data):
@@ -96,7 +94,7 @@ class Beer:
             beers.append(beer_data)
         return beers
 
-    # Moved to user model
+    # Moved to user model Currently being used on dashboard
     @classmethod
     def get_all_favorited_beers_by_user_id(cls, data):
         query = "SELECT * FROM favorites JOIN users ON users.id = favorites.user_id JOIN beers ON beers.id = favorites.beer_id WHERE users.id = %(user_id)s;"

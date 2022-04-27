@@ -44,7 +44,6 @@ def dashboard():
         }
         this_user = user.User.get_user_by_id(data)
         all_favorite_beers = beer.Beer.get_all_favorited_beers_by_user_id(data)
-        (data)
         all_beers = beer.Beer.get_all_beers()
         return render_template('dashboard.html', all_beers = all_beers, favorite_beers = all_favorite_beers)
 
