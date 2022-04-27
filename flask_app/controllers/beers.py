@@ -88,8 +88,9 @@ def show_beer(id):
     data = {
         'id': id,
     }
+    one_beer_rating = beer.Beer.get_one_beer_with_average_rating(data)
     one_beer = beer.Beer.get_one_beer_with_user_all_ratings(data)
-    return render_template("show_beer.html", one_beer = one_beer)
+    return render_template("show_beer.html", one_beer = one_beer, beer_average_rating = one_beer_rating)
 
 # Route to favorite add beer to database. Place beer id in the route on front end
 @app.route('/beer/<int:beer_id>/favorite')
