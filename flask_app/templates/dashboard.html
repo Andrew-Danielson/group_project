@@ -2,6 +2,7 @@
 {% block content %}
 <div class="col-8 mx-auto mt-4">
     <h1 class="">All Beers(0)</h1>
+    <h1>{{beer.brewery}}</h1>
         <table class="table table-striped custom-table">
             <thead>
                 <tr>
@@ -15,14 +16,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for ___ in ___ %}
+                {% for beer in beers %}
                     <tr>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>Example</td>
-                        <td>Example</td>
+                        <td>{{one_beer.name}}</td>
+                        <td>{{one_beer.brewery}}</td>
+                        <td>{{one_beer.style}}</td>
+                        <td>{{one_beer.ABV}}</td>
+                        <td>{{one_beer.IBU}}</td>
+                        <!-- <td>Average Rating</td> -->
                         <td>
                             <a href="#">Favorite</a>
                             <a href="#">Rate</a>
