@@ -44,6 +44,7 @@ def add_beer_page():
         'Pale ale': 'Pale ale',
         'Pilsner': 'Pilsner',
         'Porter': 'Porter',
+        'Pumpkin': 'Pumpkin',
         'Red ale': 'Red ale',
         'Rye Beer': 'Rye Beer',
         'Saison': 'Saison',
@@ -86,11 +87,9 @@ def show_beer(id):
         return redirect('/login')
     data = {
         'id': id,
-        'beer_id': id
     }
-    one_beer = beer.Beer.get_beer_by_beer_id(data)
-    one_beer_ratings = rating.Rating.get_all_rating_and_comments_by_beer_id(data)
-    return render_template("show_beer.html", one_beer = one_beer, one_beer_ratings = one_beer_ratings)
+    one_beer = beer.Beer.get_one_beer_with_user_all_ratings(data)
+    return render_template("show_beer.html", one_beer = one_beer)
 
 # Route to favorite add beer to database. Place beer id in the route on front end
 @app.route('/beer/<int:beer_id>/favorite', methods=['GET','POST'])

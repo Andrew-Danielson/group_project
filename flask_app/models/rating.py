@@ -15,6 +15,7 @@ class Rating:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.beer = []
+        self.user = None
 
     @staticmethod
     def validate_raiting(rating):
