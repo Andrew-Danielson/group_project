@@ -111,6 +111,8 @@ class User:
                 'created_at': row_in_db['beers.created_at'],
                 'updated_at': row_in_db['beers.updated_at'],
             }
-            this_user.favorite_beers.append(beer.Beer(beer_data))
+            beer_instance = beer.Beer(beer_data)
+            beer_instance.favorite_id = row_in_db['favorites.id']
+            this_user.favorite_beers.append(beer_instance)
         return this_user
 

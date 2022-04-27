@@ -42,10 +42,9 @@ def dashboard():
             'id': session['user_id'],
             'user_id': session['user_id']
         }
-        this_user = user.User.get_user_by_id(data)
-        all_favorite_beers = beer.Beer.get_all_favorited_beers_by_user_id(data)
+        this_user = user.User.get_user_with_favorite_beers(data)
         all_beers = beer.Beer.get_all_beers_with_average_rating()
-        return render_template('dashboard.html', all_beers = all_beers, favorite_beers = all_favorite_beers)
+    return render_template('dashboard.html', all_beers = all_beers, this_user = this_user)
 
 # Route to show user registration page
 @app.route('/register')

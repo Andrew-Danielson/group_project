@@ -4,8 +4,8 @@
 <div class=" mx-auto mt-5 text-center">
     <h1 class="mb-4">Rate Beer</h1>
     <!-- Maybe add a hello whoever -->
-    <form action="" method="post" class="rateBeer">
-        {% with messages = get_flashed_messages(category_filter=['']) %}
+    <form action="/rating/save-to-db" method="post" class="rateBeer">
+        {% with messages = get_flashed_messages(category_filter=['rating']) %}
         {% if messages %}
         <div class="alert alert-danger" role="alert">
             <strong>Flash!!!!</strong>
@@ -18,8 +18,7 @@
         <div class="mx-auto text-center pt-3">
             <div class=" mx-auto text-center">
                 <div class="rating-css mx-auto">
-                    <h2 class="mb-4">(Beer Name)</h2>
-                    <!-- ^^^^Jinja for beer.name??? -->
+                    <h2 class="mb-4">{{one_beer.name}}</h2>
                     <div class="star-icon">
                         <label id='rating'for="rating">Rating:</label>
                         <input value="1" type="radio" name="rating" id="rating1">
@@ -36,8 +35,9 @@
                 </div>
             </div>
             <h3> <label class=''for="comment">Comment:</label></h3>
-            <textarea name="description" cols="45" rows="8" class="form-controls" placeholder="Tell us what you think!"></textarea>
+            <textarea name="comment" cols="45" rows="8" class="form-controls" placeholder="Tell us what you think!"></textarea>
             <br>
+            <input type="hidden" name="beer_id" value="{{one_beer.id}}">
             <input type="submit" value="Rate Beer" id="rate" class="beerButton">
         </div>
     </form>

@@ -105,7 +105,7 @@ width: 400px;
 color: #ffe400;
 }
 .rating-css input {
-display: none;
+/* display: none; */
 align-items: center;
 }
 
