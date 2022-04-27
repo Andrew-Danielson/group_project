@@ -12,17 +12,17 @@ def rate_beer_page(id):
     return render_template('rate_beer.html', one_beer = one_beer)
 
 # Route to add rating to database. Redirects back to dashboard
-@app.route('/rating/save-to-db')
+@app.route('/rating/save-to-db', methods=['POST'])
 def save_rating():
     if 'user_id' not in session:
         return redirect('/login')
-    elif not rating.Rating.validate_raiting(request.form):
+    elif not rating.Rating.validate_rating(request.form):
         return redirect(f"/beer/{request.form['beer_id']}/rate")
     else:
         data = {
             'user_id': session['user_id'],
             'beer_id': request.form['beer_id'],
-            'rating': request.form['brewery'],
+            'rating': request.form['rating'],
             'comment': request.form['comment'],
         }
         new_rating_id = rating.Rating.save_rating(data)

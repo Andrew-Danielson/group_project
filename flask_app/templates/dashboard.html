@@ -15,16 +15,50 @@
                 </tr>
             </thead>
             <tbody>
-                {% for one_beer in all_beers %}
+                {% for one_beer in all_beers%}
+                    {%if one_beer.name != None%}
                     <tr>
                         <td>{{one_beer.name}}</td>
                         <td>{{one_beer.brewery}}</td>
                         <td>{{one_beer.style}}</td>
-                        <td>{{one_beer.ABV}}</td>
+                        <td>{{one_beer.ABV}}%</td>
                         <td>{{one_beer.IBU}}</td>
-                        <!-- <td>Average Rating</td> -->
+                        <td>{{one_beer.average_rating}}</td>
                         <td>
-                            <a href="/beer/{{one_beer.id}}/favorite">Favorite</a>
+                            <a href="/beer/{{one_beer.id}}/favorite" class="btn btn-sm btn-warning">Favorite</a>
+                            <a href="/beer/{{one_beer.id}}/rate">Rate</a>
+                            <a href="/beer/{{one_beer.id}}/view">View</a>
+                        </td>
+                    </tr>
+                    {%endif%}
+                {% endfor %}
+            </tbody>
+        </table>
+        <h1 class="">Favorite Beers</h1>
+        {%if this_user.favorite_beers[0].name == None%}
+        <h2 class="text-light text-center">Favorite some Beers</h2>
+        {%else%}
+        <table class="table table-striped custom-table">
+            <thead>
+                <tr>
+                    <th>Beer</th>
+                    <th>Brewery</th>
+                    <th>Style</th>
+                    <th>ABV</th>
+                    <th>IBU</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for one_beer in this_user.favorite_beers%}
+                    <tr>
+                        <td>{{one_beer.name}}</td>
+                        <td>{{one_beer.brewery}}</td>
+                        <td>{{one_beer.style}}</td>
+                        <td>{{one_beer.ABV}}%</td>
+                        <td>{{one_beer.IBU}}</td>
+                        <td>
+                            <a href="/beer/remove-favorite/{{one_beer.favorite_id}}" class="btn btn-sm btn-dark">Unfavorite</a>
                             <a href="/beer/{{one_beer.id}}/rate">Rate</a>
                             <a href="/beer/{{one_beer.id}}/view">View</a>
                             <!-- {# if .user_id == session.user_id #} -->
@@ -36,5 +70,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        {%endif%}
     </div>
 {% endblock %}

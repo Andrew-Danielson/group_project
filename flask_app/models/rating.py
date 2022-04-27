@@ -18,24 +18,23 @@ class Rating:
         self.user = None
 
     @staticmethod
-    def validate_raiting(rating):
+    def validate_rating(rating):
         is_valid = True
-        query = "SELECT * FROM rating where rating.id = %(rating_id)s"
-        results = connectToMySQL("beers_schema").query_db(query, rating)
-        if rating['rating'] != int(min=0, max=5):
+        print(rating)
+        if 'rating' not in rating:
         # if int(rating['rating']) < 0 or int(rating['rating']) > 5: try this if the other one doesn't work.
-            flash("please select a number between 0 and 5", "rating")
+            flash("please select a number between 0 and 5", 'rating')
             is_valid = False
         return is_valid
 
     @classmethod
     def save_rating(cls, data):
-        query = "INSERT INTO rating (user_id, beer_id, rating, comment) VALUES (%(user_id)s, %(beer_id)s,%(rating)s,%(comment)s);"
+        query = "INSERT INTO ratings (user_id, beer_id, rating, comment) VALUES (%(user_id)s, %(beer_id)s,%(rating)s,%(comment)s);"
         return connectToMySQL("beers_schema").query_db(query, data)
 
     @classmethod
     def get_all_rating_and_comments_by_beer_id(cls, data):
-        query = "SELECT * FROM rating JOIN users ON users.id = rating.user_id JOIN beers ON beers.id = rating.beer_id WHERE beers.id = %(beer_id)s;"
+        query = "SELECT * FROM ratings JOIN users ON users.id = ratings.user_id JOIN beers ON beers.id = ratings.beer_id WHERE beers.id = %(beer_id)s;"
         results = connectToMySQL("beers_schema").query_db(query, data)
         rating = []
         for row in results:
@@ -59,7 +58,7 @@ class Rating:
 
     @classmethod
     def get_all_rating_and_comments_by_user_id(cls, data):
-        query = "SELECT * FROM rating JOIN users ON users.id = rating.user_id JOIN beers ON beers.id = rating.beer_id WHERE users.id = %(user_id)s;"
+        query = "SELECT * FROM ratings JOIN users ON users.id = ratings.user_id JOIN beers ON beers.id = ratings.beer_id WHERE users.id = %(user_id)s;"
         results = connectToMySQL("beers_schema").query_db(query, data)
         rating = []
         for row in results:

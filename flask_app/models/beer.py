@@ -19,6 +19,7 @@ class Beer:
         self.user = None
         self.average_rating = None
         self.ratings = []
+        self.favorite_id = None
 
 
     @staticmethod
@@ -44,6 +45,16 @@ class Beer:
             is_valid = False
         return is_valid
 
+    @staticmethod
+    def validate_favorite(data):
+        is_valid = True
+        query = "SELECT * FROM favorites WHERE user_id = %(user_id)s AND beer_id = %(beer_id)s;"
+        result = connectToMySQL("beers_schema").query_db(query, data)
+        if len(result) > 0:
+            is_valid = False
+        return is_valid
+
+    
     @classmethod
     def save_beer(cls, data):
         query = "INSERT INTO beers (user_id, name, brewery, style, ABV, IBU) VALUES (%(user_id)s, %(name)s, %(brewery)s, %(style)s, %(ABV)s, %(IBU)s);"
@@ -115,9 +126,10 @@ class Beer:
                 'IBU': row['IBU'],
                 'created_at': row['created_at'],
                 'updated_at': row['updated_at'],
-                'average_rating': row['average_rating']
             }
-            beers_with_average_rating.append(cls(beer_data))
+            beer_instance = cls(beer_data)
+            beer_instance.average_rating = row['average_rating']
+            beers_with_average_rating.append(beer_instance)
         return beers_with_average_rating
 
     # Get 1 beer with all ratings and user

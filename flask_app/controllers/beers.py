@@ -92,7 +92,7 @@ def show_beer(id):
     return render_template("show_beer.html", one_beer = one_beer)
 
 # Route to favorite add beer to database. Place beer id in the route on front end
-@app.route('/beer/<int:beer_id>/favorite', methods=['GET','POST'])
+@app.route('/beer/<int:beer_id>/favorite')
 def favorite_beer(beer_id):
     if 'user_id' not in session:
         return redirect('/login')
@@ -100,11 +100,14 @@ def favorite_beer(beer_id):
         'user_id': session['user_id'],
         'beer_id': beer_id
     }
-    beer.Beer.save_favorite(data)
+    if not beer.Beer.validate_favorite(data):
+        return redirect('/dashboard')
+    else:
+        beer.Beer.save_favorite(data)
     return redirect('/dashboard')
 
 # Route to remove favorite. Where id is of the favorite in the database.
-@app.route('/beer/remove-favorite/<int:id>', methods=['POST'])
+@app.route('/beer/remove-favorite/<int:id>')
 def remove_favorite_beer(id):
     if 'user_id' not in session:
         return redirect('/login')
