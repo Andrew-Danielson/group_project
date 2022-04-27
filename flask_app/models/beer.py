@@ -96,7 +96,7 @@ class Beer:
             beers.append(beer_data)
         return beers
 
-    # Moved to user model
+    # Moved to user model Currently being used on dashboard
     @classmethod
     def get_all_favorited_beers_by_user_id(cls, data):
         query = "SELECT * FROM favorites JOIN users ON users.id = favorites.user_id JOIN beers ON beers.id = favorites.beer_id WHERE users.id = %(user_id)s;"
