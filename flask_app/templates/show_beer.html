@@ -7,7 +7,7 @@
             <h2>Beer Name</h2>
             <div class=" border pt-3 col-4 mx-auto text-white">
                 <div>
-                    <p class="text-white">Brewery: </p>
+                    <p class="text-white">Brewery: {{one_beer.brewery}} </p>
                     <p class="text-white">Style: </p>
                     <p class="text-white">ABV: </p>
                     <p class="text-white">IBU: </p>
@@ -15,11 +15,11 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <!-- <div class="col">
         <div class="mb-2">
             <div class="rating-css mx-auto">
                 <div class="star-icon">
-                    <!-- Need to figure out how to make an average rating from the users -->
+                    Need to figure out how to make an average rating from the users
                     <label id='rating'for="rating">Average Rating:</label>
                     <input value="1" type="radio" name="rating" id="rating1">
                     <label for="rating1" class="fa fa-star"></label>
@@ -43,6 +43,6 @@
             </div>
             {endfor}
         </div>
-    </div>
+    </div> -->
 </div>
 {% endblock %}
