@@ -93,7 +93,7 @@ def show_beer(id):
     return render_template("show_beer.html", one_beer = one_beer, one_beer_ratings = one_beer_ratings)
 
 # Route to favorite add beer to database. Place beer id in the route on front end
-@app.route('/beer/<int:beer_id>/favorite', methods=['POST'])
+@app.route('/beer/<int:beer_id>/favorite', methods=['GET','POST'])
 def favorite_beer(beer_id):
     if 'user_id' not in session:
         return redirect('/login')
