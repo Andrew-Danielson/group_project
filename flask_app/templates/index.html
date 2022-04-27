@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Welcome to BeerApp!</title>
 </head>
-<body>
+<body class="index_background" style="background-image: url({{url_for('static',filename='img/beer_cheers.jpeg')}}) ;">
     <div>
         <div class="d-flex justify-content-around align-items-center bg-opacity-75 bg-black">
             <div class="d-flex"> 
@@ -20,8 +20,16 @@
                 <p class="list-group-item bg-opacity-10 bg-dark border-0"><a href="/register">Register</a></p>
             </div>
     </div>
-    <div>
-        content here
+    <div class="d-flex flex-row justify-content-around mt-5">
+        <div class=" col-4 card p-3 bg-dark bg-opacity-75 border-warning text-light rounded-3" style="height: 30rem; font-size: 1.5rem;">
+            <h3 class="text-light" style="font-size: 2rem;">Welcome to BeerApp!</h3>
+            <p class="mt-5">
+                BeerApp is a platform for beer connoisseurs to add and rate their favorite beers. Whether you're into a good stout, IPA, or even just a good blonde: come on in and rate it with us! Not a member yet? Register <a href="/register">here</a>
+            </p>
+        </div>
+        <div class=" col-4 card p-3 bg-dark bg-opacity-75 border-warning text-light rounded-3">
+            <img src="#" alt="picture of app feature">
+        </div>
     </div>
 </body>
 </html>
