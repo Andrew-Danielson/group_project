@@ -132,6 +132,19 @@ class Beer:
             beers_with_average_rating.append(beer_instance)
         return beers_with_average_rating
 
+    # Get Beer with average rating
+    @classmethod
+    def get_one_beer_with_average_rating(cls, data):
+        query = "SELECT avg(rating) as average_rating, beers.id, beers.user_id, beers.name, beers.brewery, beers.style, beers.ABV, beers.IBU, beers.created_at, beers.updated_at FROM beers LEFT JOIN ratings ON beers.id = ratings.beer_id WHERE beers.id = %(id)s GROUP BY beers.id;"
+        result = connectToMySQL("beers_schema").query_db(query, data)
+        this_beer = cls(result[0])
+        for row in result:
+            average_data = {
+                'average_rating': row['average_rating']
+            }
+            this_beer.average_rating = average_data['average_rating']
+        return this_beer
+
     # Get 1 beer with all ratings and user
     @classmethod
     def get_one_beer_with_user_all_ratings(cls, data):
