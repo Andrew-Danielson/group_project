@@ -1,16 +1,15 @@
 {% extends "template.html" %}
 {% block content %}
-<h1 class="text-center">{{one_beer.name}} Rating</h1>
+<h1 class="text-center mt-2">{{one_beer.name}} Rating</h1>
 <div class="mx-0 row align-items-top text-center">
     <div class="col">
         <div class>
-            <h2>Beer Name</h2>
             <div class=" border pt-3 col-4 mx-auto text-white">
                 <div>
                     <p class="text-white">Brewery: {{one_beer.brewery}} </p>
-                    <p class="text-white">Style: </p>
-                    <p class="text-white">ABV: </p>
-                    <p class="text-white">IBU: </p>
+                    <p class="text-white">Style: {{one_beer.style}}</p>
+                    <p class="text-white">ABV:{{one_beer.ABV}}% </p>
+                    <p class="text-white">IBU: {{one_beer.IBU}}</p>
                 </div>
             </div>
         </div>
