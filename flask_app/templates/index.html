@@ -24,11 +24,12 @@
         <div class=" col-4 card p-3 bg-dark bg-opacity-75 border-warning text-light rounded-3" style="height: 30rem; font-size: 1.5rem;">
             <h3 class="text-light" style="font-size: 2rem;">Welcome to BeerApp!</h3>
             <p class="mt-5">
-                BeerApp is a platform for beer connoisseurs to add and rate their favorite beers. Whether you're into a good stout, IPA, or even just a good blonde: come on in and rate it with us! Not a member yet? Register <a href="/register">here</a>
+                BeerApp is a platform for beer connoisseurs to add and rate their favorite beers. Whether you're into a good stout, IPA, or even just a light blonde: come on in and rate it with us! Not a member yet? Register <a href="/register">here</a>
             </p>
         </div>
-        <div class=" col-4 card p-3 bg-dark bg-opacity-75 border-warning text-light rounded-3">
-            <img src="#" alt="picture of app feature">
+        <div class=" col-4 p-1 card bg-dark bg-opacity-75 border-warning text-light rounded-3">
+            <img class="card-img-top" src="{{ url_for('static', filename='img/dashboard.png') }}" alt="picture of app dashboard">
+            <img class="card-img-bottom mt-2" src="{{ url_for('static', filename='img/Show_beer.png') }}" alt="picture of app add beer feature">
         </div>
     </div>
 </body>
