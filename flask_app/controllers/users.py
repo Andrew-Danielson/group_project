@@ -103,6 +103,10 @@ def edit_account():
         user.User.update_user(data)
         return redirect('/my-account')
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 @app.errorhandler(404)
 def error(incorrect):

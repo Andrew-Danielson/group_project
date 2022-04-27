@@ -18,6 +18,7 @@ class Beer:
         self.updated_at = data['updated_at']
         self.user = None
         self.average_rating = None
+        self.ratings = []
 
 
     @staticmethod
@@ -35,8 +36,8 @@ class Beer:
             flash("The style of the beer must be at least 2 characters", "beer")
             is_valid = False
             # need to change ABV and IBU to also include looking for it to be INT along with length???
-        if len(beer['ABV']) < 2:
-            flash("The ABV of the beer must be at least 2 characters", "beer")
+        if len(beer['ABV']) < 1:
+            flash("The ABV of the beer must be at least 1 characters", "beer")
             is_valid = False
         if len(beer['IBU']) < 2:
             flash("The IBU of the beer must be at least 2 characters", "beer")
@@ -119,6 +120,37 @@ class Beer:
             beers_with_average_rating.append(cls(beer_data))
         return beers_with_average_rating
 
+    # Get 1 beer with all ratings and user
+    @classmethod
+    def get_one_beer_with_user_all_ratings(cls, data):
+        query = "SELECT * FROM beers LEFT JOIN ratings ON beers.id = ratings.beer_id LEFT JOIN users ON ratings.user_id = users.id WHERE beers.id = %(id)s;"
+        results = connectToMySQL("beers_schema").query_db(query, data)
+        print(results)
+        this_beer = cls(results[0])
+        for row in results:
+            rating_data = {
+                'id': row['ratings.id'],
+                'user_id': row['user_id'],
+                'beer_id': row['beer_id'],
+                'rating': row['rating'],
+                'comment': row['comment'],
+                'created_at': row['ratings.created_at'],
+                'updated_at': row['ratings.updated_at'],
+            }
+            one_rating=rating.Rating(rating_data)
+            user_rating_data = {
+                'id': row['users.id'],
+                'first_name': row['first_name'],
+                'last_name': row['last_name'],
+                'email': row['email'],
+                'age': row['age'],
+                'password': row['password'],
+                'created_at': row['users.created_at'],
+                'updated_at': row['users.updated_at']
+            }
+            one_rating.user = user.User(user_rating_data)
+            this_beer.ratings.append(one_rating)
+        return this_beer
 
 
     # Moved to user model Currently being used on dashboard
