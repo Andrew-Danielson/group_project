@@ -17,6 +17,8 @@ class Beer:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user = None
+        self.average_rating = None
+
 
     @staticmethod
     def validate_beer(beer):
@@ -94,12 +96,36 @@ class Beer:
             beers.append(beer_data)
         return beers
 
+    @classmethod
+    def get_all_beers_with_average_rating(cls):
+        query = "SELECT avg(rating) as average_rating, beers.id, beers.user_id, beers.name, beers.brewery, beers.style, beers.ABV, beers.IBU, beers.created_at, beers.updated_at FROM beers LEFT JOIN ratings ON beers.id = ratings.beer_id GROUP BY beers.id;"
+        results = connectToMySQL("beers_schema").query_db(query)
+        if len(results) == 0:
+            return None
+        beers_with_average_rating = []
+        for row in results:
+            beer_data = {
+                'id': row['id'],
+                'user_id': row['user_id'],
+                'name': row['name'],
+                'brewery': row['brewery'],
+                'style': row['style'],
+                'ABV': row['ABV'],
+                'IBU': row['IBU'],
+                'created_at': row['created_at'],
+                'updated_at': row['updated_at'],
+                'average_rating': row['average_rating']
+            }
+            beers_with_average_rating.append(cls(beer_data))
+        return beers_with_average_rating
+
+
+
     # Moved to user model Currently being used on dashboard
     @classmethod
     def get_all_favorited_beers_by_user_id(cls, data):
         query = "SELECT * FROM favorites JOIN users ON users.id = favorites.user_id JOIN beers ON beers.id = favorites.beer_id WHERE users.id = %(user_id)s;"
         results = connectToMySQL("beers_schema").query_db(query, data)
-        print(results)
         if len(results) == 0:
             return None
         beers = []
