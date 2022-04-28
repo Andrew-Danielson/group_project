@@ -55,7 +55,7 @@ def register():
 @app.route('/register_user', methods=['POST'])
 def register_user():
     if not user.User.validate_user(request.form):
-        return redirect ('/')
+        return redirect ('/register')
     else:
         pw_hash = bcrypt.generate_password_hash(request.form['password'])
         data = {

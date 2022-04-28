@@ -35,6 +35,9 @@ class User:
             flash("Last name must be at least 3 characters.", "registration")
             is_valid = False
         print(user)
+        if user['age'] == '':
+            flash("Enter age", "registration")
+            is_valid = False
         if 'age' in user:
             # Calculate Age of User
             date_object = datetime.strptime(user['age'],'%Y-%m-%d').date()
@@ -46,6 +49,7 @@ class User:
             # Validate age
             if  age(date_object) < int(21):
                 flash("You must be 21 or older to enter this site", "registration")
+                is_valid = False
         if len(results) >= 1:
             flash("Email already taken.", "registration")
             is_valid = False
